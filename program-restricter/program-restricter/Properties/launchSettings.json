@@ -1,8 +1,7 @@
 {
   "profiles": {
     "program-restricter": {
-      "commandName": "Project",
-      "commandLineArgs": "-f filename -o 1 -u Shaked"
+      "commandName": "Project"
     }
   }
 }

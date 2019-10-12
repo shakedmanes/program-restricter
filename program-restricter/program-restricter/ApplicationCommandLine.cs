@@ -1,26 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using CommandLine;
 
 namespace program_restricter
 {
-    class ApplicationCommandLine
+    [Verb("block", HelpText = ApplicationCommandLine.HELP_TEXT_BLOCK)]
+    public class BlockOptions
     {
+        [Option('u', "user", Required = true, HelpText = ApplicationCommandLine.HELP_TEXT_USERNAME)]
+        public string Username { get; set; }
 
-        private const string HELP_TEXT_PATH_FILE = "Path for the file to block/unblock";
-        private const string HELP_TEXT_OPERATION = "Operation to perform (0 = Block, 1 = Unblock)";
-        private const string HELP_TEXT_USERNAME = "Username to perform operation on";
-        public enum OperationType { Block = 0, Unblock };
+        [Option('p', "program", HelpText = ApplicationCommandLine.HELP_TEXT_PROGRAM, SetName = "input")]
+        public string ProgramName { get; set; }
 
-        // Required Options
-        [Option('f', "file", Required = true, HelpText = HELP_TEXT_PATH_FILE)]
+        [Option('l', "list", Required = true, HelpText = ApplicationCommandLine.HELP_TEXT_LIST_PROGRAMS, Separator = ',')]
+        public IEnumerable<string> ProgramsList { get; set; }
+
+        [Option('f', "file", HelpText = ApplicationCommandLine.HELP_TEXT_PATH_FILE, SetName = "input")]
+        public string PathFile { get; set; }
+    }
+
+    [Verb("unblock", HelpText = ApplicationCommandLine.HELP_TEXT_UNBLOCK)]
+    public class UnblockOptions
+    {
+        [Option('u', "user", Required = true, HelpText = ApplicationCommandLine.HELP_TEXT_USERNAME)]
+        public string Username { get; set; }
+
+        [Option('p', "program", HelpText = ApplicationCommandLine.HELP_TEXT_PROGRAM, SetName = "input")]
+        public string ProgramName { get; set; }
+
+        [Option('l', "list", Required = true, HelpText = ApplicationCommandLine.HELP_TEXT_LIST_PROGRAMS, Separator = ',')]
+        public IEnumerable<string> ProgramsList { get; set; }
+
+        [Option('f', "file", HelpText = ApplicationCommandLine.HELP_TEXT_PATH_FILE, SetName = "input")]
         public string PathFile { get; set; }
 
-        [Option('o', "operation", Required = true, HelpText = HELP_TEXT_OPERATION)]
-        public OperationType Operation { get; set; }
+        [Option('a', "all", HelpText = ApplicationCommandLine.HELP_TEXT_UNBLOCK_ALL, SetName = "input")]
+        public bool All { get; set; }
+    }
 
-        [Option('u', "user", Required = true, HelpText = HELP_TEXT_USERNAME)]
-        public string Username { get; set; }                
+    class ApplicationCommandLine
+    {
+        public const string HELP_TEXT_BLOCK = "Block program/s for specific user";
+        public const string HELP_TEXT_UNBLOCK = "Unblock program/s for specific user";
+        public const string HELP_TEXT_PATH_FILE = "Path for file contains list of executables to block/unblock";
+        public const string HELP_TEXT_USERNAME = "User name to perform operation on";
+        public const string HELP_TEXT_PROGRAM = "Single program executable name to block or unblock";
+        public const string HELP_TEXT_LIST_PROGRAMS = "List of programs executable names to block or unblock separated by space";
+        public const string HELP_TEXT_UNBLOCK_ALL = "Unblock all programs currently restricted for specific user";        
     }
 }
