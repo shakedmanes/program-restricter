@@ -5,6 +5,7 @@
 
 It requires Administrator privileges for usage on other users in the system.
 
+**NOTE**: Changes take effect only after restart.
 
 ## Usage
 `program-restricter [block\unblock] [-u] [Username] [-plfa]` 
